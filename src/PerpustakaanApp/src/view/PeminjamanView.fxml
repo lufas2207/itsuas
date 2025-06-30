@@ -19,6 +19,8 @@
                     style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-font-weight: bold;"/>
             <Button text="Hapus Peminjaman" onAction="#hapusPeminjaman"
                     style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="Sudah Dikembalikan" onAction="#kembalikanBuku"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;"/>
         </VBox>
 
         <TableView fx:id="tablePeminjaman" layoutX="300" layoutY="50" prefWidth="600" prefHeight="300"
