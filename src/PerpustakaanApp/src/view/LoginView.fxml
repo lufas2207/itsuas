@@ -11,6 +11,11 @@
               AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 
+            <!-- Padding untuk seluruh isi VBox -->
+            <padding>
+                <Insets top="30" right="20" bottom="30" left="20"/>
+            </padding>
+
             <Label text="Login Admin/User"
                    style="-fx-font-weight: bold; -fx-font-size: 18px;" />
 
@@ -21,12 +26,17 @@
                            maxWidth="250" />
 
             <Button text="Login" onAction="#handleLogin"
-                    style="-fx-background-color: #2ecc71; -fx-text-fill: white;"
-                    maxWidth="120" />
+                    style="-fx-background-color: #6cc491; -fx-text-fill: white;"
+                    maxWidth="120">
+                <!-- Margin bawah untuk tombol Login -->
+                <VBox.margin>
+                    <Insets bottom="10"/>
+                </VBox.margin>
+            </Button>
 
             <HBox alignment="CENTER" spacing="30">
                 <Button text="Daftar" onAction="#handleDaftar"
-                        style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+                        style="-fx-background-color: #3e8dc2; -fx-text-fill: white;" />
                 <Button text="Lupa Password?" onAction="#handleLupaPassword"
                         style="-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-underline: true;" />
             </HBox>

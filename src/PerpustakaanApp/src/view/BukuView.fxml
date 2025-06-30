@@ -20,7 +20,7 @@
 
             <HBox spacing="10">
                 <Button text="Tambah Buku" onAction="#tambahBuku"
-                        style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
+                        style="-fx-background-color: #6cc491; -fx-text-fill: white;"/>
                 <Button text="Hapus Buku" onAction="#hapusBuku"
                         style="-fx-background-color: #c0392b; -fx-text-fill: white;"/>
             </HBox>
@@ -30,14 +30,14 @@
 
             <HBox spacing="10">
                 <Button text="Tambah Stok" onAction="#tambahStok"
-                        style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                        style="-fx-background-color: #6cc491; -fx-text-fill: white;"/>
                 <Button text="Kurangi Stok" onAction="#kurangiStok"
                         style="-fx-background-color: #e67e22; -fx-text-fill: white;"/>
             </HBox>
 
             <HBox spacing="10">
                 <Button text="Edit Buku" onAction="#editBuku"
-                        style="-fx-background-color: #f1c40f; -fx-text-fill: white;"/>
+                        style="-fx-background-color: #e6c212; -fx-text-fill: white;"/>
                 <Button text="Simpan Edit" onAction="#simpanEditBuku"
                         style="-fx-background-color: #2980b9; -fx-text-fill: white;"/>
             </HBox>

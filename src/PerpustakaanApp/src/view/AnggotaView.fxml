@@ -17,7 +17,7 @@
 
             <HBox spacing="10">
                 <Button text="Tambah Anggota" onAction="#tambahAnggota"
-                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                        style="-fx-background-color: #6cc491; -fx-text-fill: white; -fx-font-weight: bold;"/>
                 <Button text="Hapus Anggota" onAction="#hapusAnggota"
                         style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
             </HBox>

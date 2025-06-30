@@ -16,7 +16,7 @@
 
             <HBox spacing="10">
                 <Button text="Daftar" onAction="#handleDaftar"
-                        style="-fx-background-color: #27ae60; -fx-text-fill: white;" />
+                        style="-fx-background-color: #3e8dc2; -fx-text-fill: white;" />
                 <Button text="Batal" onAction="#handleBatal"
                         style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
             </HBox>
