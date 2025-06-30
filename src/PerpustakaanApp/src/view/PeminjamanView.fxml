@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.PeminjamanController"
+            style="-fx-background-color: #f5f6fa;">
+    <children>
+        <Label layoutX="300" layoutY="10" text="Manajemen Peminjaman"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2f3640;"/>
+
+        <VBox layoutX="20" layoutY="50" spacing="10"
+              style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <Label text="Form Peminjaman" style="-fx-font-weight: bold; -fx-text-fill: #2f3640;" />
+
+            <TextField fx:id="tfIDAnggota" promptText="ID Anggota" />
+            <TextField fx:id="tfKodeBuku" promptText="Kode Buku" />
+
+            <Button text="Tambah Peminjaman" onAction="#tambahPeminjaman"
+                    style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="Hapus Peminjaman" onAction="#hapusPeminjaman"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <TableView fx:id="tablePeminjaman" layoutX="300" layoutY="50" prefWidth="460" prefHeight="250"
+                   style="-fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+            <columns>
+                <TableColumn fx:id="colIDAnggota" text="ID Anggota" prefWidth="150"/>
+                <TableColumn fx:id="colKodeBuku" text="Kode Buku" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.BukuController"
+            style="-fx-background-color: #f5f6fa;">
+    <children>
+        <Label layoutX="300" layoutY="10" text="Manajemen Buku"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2f3640;"/>
+
+        <VBox layoutX="20" layoutY="50" spacing="10"
+              style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <Label text="Form Tambah Buku" style="-fx-font-weight: bold; -fx-text-fill: #2f3640;" />
+
+            <TextField fx:id="tfKode" promptText="Kode Buku" />
+            <TextField fx:id="tfJudul" promptText="Judul" />
+            <TextField fx:id="tfPengarang" promptText="Pengarang" />
+            <TextField fx:id="tfTahun" promptText="Tahun Terbit" />
+            <TextField fx:id="tfStok" promptText="Jumlah Stok Awal" />
+
+            <HBox spacing="10">
+                <Button text="Tambah Buku" onAction="#tambahBuku"
+                        style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
+                <Button text="Hapus Buku" onAction="#hapusBuku"
+                        style="-fx-background-color: #c0392b; -fx-text-fill: white;"/>
+            </HBox>
+
+            <Label text="Atur Stok Buku:" style="-fx-font-weight: bold; -fx-text-fill: #2f3640;" />
+            <TextField fx:id="tfJumlahStok" promptText="Jumlah" />
+
+            <HBox spacing="10">
+                <Button text="Tambah Stok" onAction="#tambahStok"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                <Button text="Kurangi Stok" onAction="#kurangiStok"
+                        style="-fx-background-color: #e67e22; -fx-text-fill: white;"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Button text="Edit Buku" onAction="#editBuku"
+                        style="-fx-background-color: #f1c40f; -fx-text-fill: white;"/>
+                <Button text="Simpan Edit" onAction="#simpanEditBuku"
+                        style="-fx-background-color: #2980b9; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+
+        <TableView fx:id="tableBuku" layoutX="300" layoutY="50" prefWidth="500" prefHeight="300"
+                   style="-fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+            <columns>
+                <TableColumn fx:id="colKode" text="Kode Buku" prefWidth="90"/>
+                <TableColumn fx:id="colJudul" text="Judul" prefWidth="120"/>
+                <TableColumn fx:id="colPengarang" text="Pengarang" prefWidth="120"/>
+                <TableColumn fx:id="colTahun" text="Tahun Terbit" prefWidth="80"/>
+                <TableColumn fx:id="colStok" text="Stok" prefWidth="60"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

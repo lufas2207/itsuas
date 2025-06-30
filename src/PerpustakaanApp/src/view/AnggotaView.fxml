@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.AnggotaController"
+            style="-fx-background-color: #f5f6fa;">
+    <children>
+        <VBox spacing="10" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="50"
+              style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <Label text="Form Tambah Anggota" style="-fx-font-weight: bold; -fx-text-fill: #2f3640;" />
+
+            <TextField fx:id="tfID" promptText="ID Anggota" />
+            <TextField fx:id="tfNama" promptText="Nama" />
+            <TextField fx:id="tfAlamat" promptText="Alamat" />
+            <TextField fx:id="tfHP" promptText="Nomor HP" />
+
+            <HBox spacing="10">
+                <Button text="Tambah Anggota" onAction="#tambahAnggota"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Button text="Hapus Anggota" onAction="#hapusAnggota"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Button text="Edit Anggota" onAction="#editAnggota"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                <Button text="Simpan Edit" onAction="#simpanEditAnggota"
+                        style="-fx-background-color: #2980b9; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+
+        <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="300" AnchorPane.rightAnchor="20">
+            <Label text="Manajemen Anggota"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2f3640;" />
+
+            <TableView fx:id="tableAnggota" prefHeight="500"
+                       style="-fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+                <columns>
+                    <TableColumn fx:id="colID" text="ID Anggota" prefWidth="150"/>
+                    <TableColumn fx:id="colNama" text="Nama" prefWidth="200"/>
+                    <TableColumn fx:id="colAlamat" text="Alamat" prefWidth="200"/>
+                    <TableColumn fx:id="colHP" text="Nomor HP" prefWidth="150"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>
