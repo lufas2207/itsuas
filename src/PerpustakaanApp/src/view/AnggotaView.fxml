@@ -13,6 +13,7 @@
             <TextField fx:id="tfNama" promptText="Nama" />
             <TextField fx:id="tfAlamat" promptText="Alamat" />
             <TextField fx:id="tfHP" promptText="Nomor HP" />
+            <TextField fx:id="tfPassword" promptText="Password" />
 
             <HBox spacing="10">
                 <Button text="Tambah Anggota" onAction="#tambahAnggota"

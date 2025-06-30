@@ -11,13 +11,12 @@ import model.Anggota;
 import java.io.*;
 
 public class AnggotaController {
-    @FXML private TextField tfID, tfNama, tfAlamat, tfHP;
+    @FXML private TextField tfID, tfNama, tfAlamat, tfHP, tfPassword;
     @FXML private TableView<Anggota> tableAnggota;
     @FXML private TableColumn<Anggota, String> colID, colNama, colAlamat, colHP;
 
     private ObservableList<Anggota> daftarAnggota = FXCollections.observableArrayList();
     private final String FILE_PATH = "anggota.txt";
-
     private Anggota anggotaYangDiedit = null;
 
     @FXML
@@ -32,17 +31,48 @@ public class AnggotaController {
 
     @FXML
     public void tambahAnggota(ActionEvent event) {
-        String id = tfID.getText();
-        String nama = tfNama.getText();
-        String alamat = tfAlamat.getText();
-        String hp = tfHP.getText();
+        String id = tfID.getText().trim();
+        String nama = tfNama.getText().trim();
+        String alamat = tfAlamat.getText().trim();
+        String hp = tfHP.getText().trim();
+        String password = tfPassword.getText().trim();
 
-        if (id.isEmpty() || nama.isEmpty()) return;
+        if (id.isEmpty() || nama.isEmpty() || password.isEmpty()) return;
 
         Anggota anggota = new Anggota(id, nama, alamat, hp);
         daftarAnggota.add(anggota);
         simpanSemuaKeFile();
+
+        // Simpan ke login.txt dengan password dari form
+        simpanKeLoginFile(id, password, "user");
+
         clearForm();
+    }
+
+    private void simpanKeLoginFile(String id, String password, String role) {
+        boolean sudahAda = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("login.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length >= 1 && data[0].equals(id)) {
+                    sudahAda = true;
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            // file belum ada, tidak masalah
+        }
+
+        if (!sudahAda) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("login.txt", true))) {
+                writer.write(id + "," + password + "," + role);
+                writer.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -112,5 +142,6 @@ public class AnggotaController {
         tfNama.clear();
         tfAlamat.clear();
         tfHP.clear();
+        tfPassword.clear();
     }
 }

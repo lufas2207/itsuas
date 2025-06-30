@@ -10,7 +10,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            AnchorPane root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("/view/LoginView.fxml"));
             Scene scene = new Scene(root,400,400);
             primaryStage.setTitle("Aplikasi Perpustakaan");
 

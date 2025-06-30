@@ -5,6 +5,8 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.MainController">
     <children>
+        <Label layoutX="20" layoutY="10" text="Masuk sebagai: Admin" />
+
         <Label layoutX="20" layoutY="20" text="Selamat Datang di Aplikasi Perpustakaan"/>
         <Button layoutX="150" layoutY="60" text="Manajemen Buku" onAction="#handleBuku"/>
         <Button layoutX="150" layoutY="100" text="Manajemen Anggota" onAction="#handleAnggota"/>

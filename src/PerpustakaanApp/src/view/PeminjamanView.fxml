@@ -21,11 +21,14 @@
                     style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
         </VBox>
 
-        <TableView fx:id="tablePeminjaman" layoutX="300" layoutY="50" prefWidth="460" prefHeight="250"
+        <TableView fx:id="tablePeminjaman" layoutX="300" layoutY="50" prefWidth="600" prefHeight="300"
                    style="-fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;">
             <columns>
-                <TableColumn fx:id="colIDAnggota" text="ID Anggota" prefWidth="150"/>
-                <TableColumn fx:id="colKodeBuku" text="Kode Buku" prefWidth="150"/>
+                <TableColumn fx:id="colIdPeminjaman" text="ID Peminjaman" prefWidth="120"/>
+                <TableColumn fx:id="colIDAnggota" text="ID Anggota" prefWidth="100"/>
+                <TableColumn fx:id="colKodeBuku" text="Kode Buku" prefWidth="100"/>
+                <TableColumn fx:id="colTanggalPinjam" text="Tgl Pinjam" prefWidth="120"/>
+                <TableColumn fx:id="colTanggalKembali" text="Tgl Kembali" prefWidth="120"/>
             </columns>
         </TableView>
     </children>

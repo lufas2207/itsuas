@@ -29,4 +29,15 @@ public class Buku {
 
     public int getStok() { return stok; }
     public void setStok(int stok) { this.stok = stok; }
+
+    // Method tambahan
+    public boolean isTersedia() {
+        return stok > 0;
+    }
+
+    public void kurangiStok() {
+        if (stok > 0) {
+            stok--;
+        }
+    }
 }

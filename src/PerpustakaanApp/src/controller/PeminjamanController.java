@@ -1,3 +1,4 @@
+// PeminjamanController disempurnakan agar sesuai model.Peminjaman (5 kolom)
 package controller;
 
 import javafx.collections.FXCollections;
@@ -10,13 +11,16 @@ import model.Peminjaman;
 import model.Buku;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 public class PeminjamanController {
     @FXML private TextField tfIDAnggota, tfKodeBuku;
     @FXML private TableView<Peminjaman> tablePeminjaman;
-    @FXML private TableColumn<Peminjaman, String> colIDAnggota, colKodeBuku;
+    @FXML private TableColumn<Peminjaman, String> colIdPeminjaman, colIDAnggota, colKodeBuku;
+    @FXML private TableColumn<Peminjaman, LocalDate> colTanggalPinjam, colTanggalKembali;
+    @FXML private Button btnKembalikan;
 
     private ObservableList<Peminjaman> daftarPeminjaman = FXCollections.observableArrayList();
     private Set<String> daftarAnggota = new HashSet<>();
@@ -28,8 +32,11 @@ public class PeminjamanController {
 
     @FXML
     public void initialize() {
+        colIdPeminjaman.setCellValueFactory(new PropertyValueFactory<>("idPeminjaman"));
         colIDAnggota.setCellValueFactory(new PropertyValueFactory<>("idAnggota"));
         colKodeBuku.setCellValueFactory(new PropertyValueFactory<>("kodeBuku"));
+        colTanggalPinjam.setCellValueFactory(new PropertyValueFactory<>("tanggalPinjam"));
+        colTanggalKembali.setCellValueFactory(new PropertyValueFactory<>("tanggalKembali"));
         tablePeminjaman.setItems(daftarPeminjaman);
 
         muatDataAnggota();
@@ -73,8 +80,10 @@ public class PeminjamanController {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length >= 2) {
-                    Peminjaman p = new Peminjaman("", data[0], data[1], null, null);
+                if (data.length >= 5) {
+                    LocalDate tglPinjam = LocalDate.parse(data[3]);
+                    LocalDate tglKembali = data[4].equals("-") ? null : LocalDate.parse(data[4]);
+                    Peminjaman p = new Peminjaman(data[0], data[1], data[2], tglPinjam, tglKembali);
                     daftarPeminjaman.add(p);
                 }
             }
@@ -87,6 +96,11 @@ public class PeminjamanController {
     public void tambahPeminjaman(ActionEvent event) {
         String idAnggota = tfIDAnggota.getText().trim();
         String kodeBuku = tfKodeBuku.getText().trim();
+
+        if (idAnggota.isEmpty() || kodeBuku.isEmpty()) {
+            showAlert("Gagal", "Harap isi semua field!");
+            return;
+        }
 
         if (!daftarAnggota.contains(idAnggota)) {
             showAlert("Gagal", "ID Anggota tidak ditemukan!");
@@ -111,17 +125,24 @@ public class PeminjamanController {
             return;
         }
 
-        // Kurangi stok dan simpan kembali
         bukuDipinjam.setStok(bukuDipinjam.getStok() - 1);
         simpanBukuKeFile();
 
-        // Tambahkan peminjaman
-        Peminjaman pinjam = new Peminjaman("", idAnggota, kodeBuku, null, null);
+        LocalDate sekarang = LocalDate.now();
+        Peminjaman pinjam = new Peminjaman(
+                "PJ" + System.currentTimeMillis(), idAnggota, kodeBuku, sekarang, null);
+
         daftarPeminjaman.add(pinjam);
         simpanPeminjamanKeFile(pinjam);
 
         tfIDAnggota.clear();
         tfKodeBuku.clear();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Berhasil");
+        alert.setHeaderText(null);
+        alert.setContentText("Peminjaman berhasil ditambahkan!");
+        alert.showAndWait();
     }
 
     private void simpanBukuKeFile() {
@@ -138,7 +159,11 @@ public class PeminjamanController {
 
     private void simpanPeminjamanKeFile(Peminjaman data) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PINJAM, true))) {
-            writer.write(data.getIdAnggota() + "," + data.getKodeBuku());
+            writer.write(data.getIdPeminjaman() + "," +
+                    data.getIdAnggota() + "," +
+                    data.getKodeBuku() + "," +
+                    data.getTanggalPinjam() + "," +
+                    "-");
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -148,7 +173,11 @@ public class PeminjamanController {
     private void simpanUlangPeminjamanKeFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PINJAM))) {
             for (Peminjaman p : daftarPeminjaman) {
-                writer.write(p.getIdAnggota() + "," + p.getKodeBuku());
+                writer.write(p.getIdPeminjaman() + "," +
+                        p.getIdAnggota() + "," +
+                        p.getKodeBuku() + "," +
+                        p.getTanggalPinjam() + "," +
+                        (p.getTanggalKembali() != null ? p.getTanggalKembali() : "-"));
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -167,8 +196,29 @@ public class PeminjamanController {
         }
     }
 
+    @FXML
+    public void kembalikanBuku() {
+        Peminjaman selected = tablePeminjaman.getSelectionModel().getSelectedItem();
+        if (selected != null && selected.getTanggalKembali() == null) {
+            selected.setTanggalKembali(LocalDate.now());
+
+            // Tambah stok bukunya kembali
+            for (Buku b : daftarBuku) {
+                if (b.getKodeBuku().equals(selected.getKodeBuku())) {
+                    b.setStok(b.getStok() + 1);
+                    break;
+                }
+            }
+            simpanBukuKeFile();
+            simpanUlangPeminjamanKeFile();
+            tablePeminjaman.refresh();
+        } else {
+            showAlert("Tidak Valid", "Pilih peminjaman yang belum dikembalikan.");
+        }
+    }
+
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

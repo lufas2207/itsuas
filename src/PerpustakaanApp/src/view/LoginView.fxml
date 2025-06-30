@@ -3,11 +3,22 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:controller="controller.LoginController"
-            xmlns:fx="http://javafx.com/fxml" prefWidth="300" prefHeight="200">
+            xmlns:fx="http://javafx.com/fxml" prefWidth="300" prefHeight="250"
+            style="-fx-background-color: #ecf0f1;">
     <children>
-        <Label layoutX="100" layoutY="20" text="Login Admin/User" />
-        <TextField fx:id="tfUsername" layoutX="80" layoutY="60" promptText="Username" />
-        <PasswordField fx:id="pfPassword" layoutX="80" layoutY="100" promptText="Password" />
-        <Button layoutX="110" layoutY="140" text="Login" onAction="#handleLogin" />
+        <Label layoutX="90" layoutY="20" text="Login Admin/User"
+               style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+
+        <TextField fx:id="tfUsername" layoutX="70" layoutY="60" promptText="Username" />
+        <PasswordField fx:id="pfPassword" layoutX="70" layoutY="100" promptText="Password" />
+
+        <Button layoutX="115" layoutY="140" text="Login" onAction="#handleLogin"
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+
+        <Button layoutX="50" layoutY="180" text="Daftar" onAction="#handleDaftar"
+                style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+
+        <Button layoutX="160" layoutY="180" text="Lupa Password?" onAction="#handleLupaPassword"
+                style="-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-underline: true;" />
     </children>
 </AnchorPane>

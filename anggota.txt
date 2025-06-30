@@ -1,4 +1,6 @@
-202410370110225,Mochammad Farhan Hikmadi,Malang,085186682091
-202410370110237,Dwi Yoga Rizki Pratama,Batu,081230033690
+202410370110225,Mochammad Farhan Hikmadi,Malang-Singosari,085186682091
+202410370110227,Irfan Hamid,Samarinda,089689323567
+202410370110237,Dwiyoga Rizki Pratama,Batu-Pendem,081230033690
 202410370110250,Bagas Surya Pratama,Bondowoso,082191368060
 202410370110268,Rifadz Maulana Herianto Putra,Malang,085646614793
+1,far,ww,22

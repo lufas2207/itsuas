@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.UserController">
+    <top>
+        <Label fx:id="labelNama" text="Selamat Datang!"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+    <center>
+        <TableView fx:id="tableBuku">
+            <columns>
+                <TableColumn fx:id="colKode" text="Kode Buku"/>
+                <TableColumn fx:id="colJudul" text="Judul"/>
+                <TableColumn fx:id="colPengarang" text="Pengarang"/>
+                <TableColumn fx:id="colTahun" text="Tahun"/>
+                <TableColumn fx:id="colStok" text="Stok"/>
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
+            <Button text="Pinjam Buku Terpilih" onAction="#handlePinjam"/>
+            <Button text="Riwayat Peminjaman" onAction="#showRiwayat"/>
+            <Button text="Logout" onAction="#handleLogout"/>
+        </HBox>
+    </bottom>
+</BorderPane>
