@@ -12,7 +12,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Anggota;
 import model.Buku;
-import model.Peminjaman;
 
 import java.io.*;
 import java.time.LocalDate;

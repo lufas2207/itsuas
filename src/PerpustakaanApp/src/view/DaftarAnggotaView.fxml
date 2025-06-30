@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.DaftarAnggotaController"
-            prefWidth="300" prefHeight="350" style="-fx-background-color: #f5f6fa;">
+            prefWidth="300" prefHeight="400" style="-fx-background-color: #f5f6fa;">
     <children>
         <VBox spacing="10" layoutX="50" layoutY="20">
             <Label text="Form Pendaftaran Anggota" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
@@ -14,8 +14,12 @@
             <TextField fx:id="tfHP" promptText="Nomor HP" />
             <PasswordField fx:id="pfPassword" promptText="Password" />
 
-            <Button text="Daftar" onAction="#handleDaftar"
-                    style="-fx-background-color: #27ae60; -fx-text-fill: white;" />
+            <HBox spacing="10">
+                <Button text="Daftar" onAction="#handleDaftar"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white;" />
+                <Button text="Batal" onAction="#handleBatal"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+            </HBox>
         </VBox>
     </children>
 </AnchorPane>
