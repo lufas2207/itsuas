@@ -5,25 +5,31 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.PeminjamanController"
             style="-fx-background-color: #f5f6fa;">
     <children>
-        <Label layoutX="300" layoutY="10" text="Manajemen Peminjaman"
-               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2f3640;"/>
+        <Label text="Manajemen Peminjaman"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2f3640;">
+            <AnchorPane.topAnchor>10.0</AnchorPane.topAnchor>
+            <AnchorPane.leftAnchor>20.0</AnchorPane.leftAnchor>
+        </Label>
 
-        <VBox layoutX="20" layoutY="50" spacing="10"
+        <VBox spacing="10"
               style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
-            <Label text="Form Peminjaman" style="-fx-font-weight: bold; -fx-text-fill: #2f3640;" />
-
-            <TextField fx:id="tfIDAnggota" promptText="ID Anggota" />
-            <TextField fx:id="tfKodeBuku" promptText="Kode Buku" />
-
-            <Button text="Tambah Peminjaman" onAction="#tambahPeminjaman"
-                    style="-fx-background-color: #6cc491; -fx-text-fill: white; -fx-font-weight: bold;"/>
-            <Button text="Hapus Peminjaman" onAction="#hapusPeminjaman"
-                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
-            <Button text="Sudah Dikembalikan" onAction="#kembalikanBuku"
-                    style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <children>
+                <Label text="Form Peminjaman" style="-fx-font-weight: bold; -fx-text-fill: #2f3640;" />
+                <TextField fx:id="tfIDAnggota" promptText="ID Anggota" />
+                <TextField fx:id="tfKodeBuku" promptText="Kode Buku" />
+                <Button text="Tambah Peminjaman" onAction="#tambahPeminjaman"
+                        style="-fx-background-color: #6cc491; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Button text="Hapus Peminjaman" onAction="#hapusPeminjaman"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Button text="Sudah Dikembalikan" onAction="#kembalikanBuku"
+                        style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </children>
+            <AnchorPane.topAnchor>50.0</AnchorPane.topAnchor>
+            <AnchorPane.leftAnchor>20.0</AnchorPane.leftAnchor>
+            <AnchorPane.bottomAnchor>20.0</AnchorPane.bottomAnchor>
         </VBox>
 
-        <TableView fx:id="tablePeminjaman" layoutX="300" layoutY="50" prefWidth="600" prefHeight="300"
+        <TableView fx:id="tablePeminjaman"
                    style="-fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;">
             <columns>
                 <TableColumn fx:id="colIdPeminjaman" text="ID Peminjaman" prefWidth="120"/>
@@ -32,6 +38,10 @@
                 <TableColumn fx:id="colTanggalPinjam" text="Tgl Pinjam" prefWidth="120"/>
                 <TableColumn fx:id="colTanggalKembali" text="Tgl Kembali" prefWidth="120"/>
             </columns>
+            <AnchorPane.topAnchor>50.0</AnchorPane.topAnchor>
+            <AnchorPane.leftAnchor>300.0</AnchorPane.leftAnchor>
+            <AnchorPane.rightAnchor>20.0</AnchorPane.rightAnchor>
+            <AnchorPane.bottomAnchor>20.0</AnchorPane.bottomAnchor>
         </TableView>
     </children>
 </AnchorPane>

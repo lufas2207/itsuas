@@ -5,8 +5,11 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.AnggotaController"
             style="-fx-background-color: #f5f6fa;">
     <children>
-        <VBox spacing="10" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="50"
-              style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+        <!-- Bagian Form -->
+        <VBox spacing="10"
+              style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-border-radius: 10px;
+                     -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+              AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0">
             <Label text="Form Tambah Anggota" style="-fx-font-weight: bold; -fx-text-fill: #2f3640;" />
 
             <TextField fx:id="tfID" promptText="ID Anggota" />
@@ -30,11 +33,13 @@
             </HBox>
         </VBox>
 
-        <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="300" AnchorPane.rightAnchor="20">
+        <!-- Bagian Tabel -->
+        <VBox spacing="10" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="300.0"
+              AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
             <Label text="Manajemen Anggota"
                    style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2f3640;" />
 
-            <TableView fx:id="tableAnggota" prefHeight="500"
+            <TableView fx:id="tableAnggota" VBox.vgrow="ALWAYS"
                        style="-fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;">
                 <columns>
                     <TableColumn fx:id="colID" text="ID Anggota" prefWidth="150"/>
