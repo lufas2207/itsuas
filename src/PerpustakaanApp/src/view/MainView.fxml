@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.MainController"
-            prefWidth="500" prefHeight="300" style="-fx-background-color: #f0f4f7;">
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.MainController"
+            style="-fx-background-color: linear-gradient(to bottom, #f0f4f7, #dfe6e9);"
+            prefWidth="600" prefHeight="400">
+
     <children>
-        <Label layoutX="20" layoutY="20" text="Masuk sebagai: Admin"
-               style="-fx-font-weight: bold; -fx-font-size: 14px;" />
 
-        <Label layoutX="20" layoutY="50" text="Selamat Datang di Aplikasi Perpustakaan"
-               style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="15"
+              AnchorPane.topAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <Label text="👤 Masuk sebagai: Admin"
+                   style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Logout" onAction="#handleLogout"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;
+                           -fx-background-radius: 6; -fx-cursor: hand;" />
+        </HBox>
 
-        <VBox layoutX="160" layoutY="100" spacing="15">
-            <Button text="Manajemen Buku" onAction="#handleBuku"
-                    style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px; -fx-pref-width: 180;"/>
-            <Button text="Manajemen Anggota" onAction="#handleAnggota"
-                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-pref-width: 180;"/>
-            <Button text="Peminjaman Buku" onAction="#handlePeminjaman"
-                    style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 14px; -fx-pref-width: 180;"/>
+        <!-- Title -->
+        <Label text="📚 Pilihan Menu"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #34495e;"
+               AnchorPane.topAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               alignment="CENTER" maxWidth="Infinity"/>
+
+        <!-- Menu Buttons -->
+        <VBox alignment="CENTER" spacing="20"
+              AnchorPane.topAnchor="120.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+
+            <Button text="📘 List Buku" onAction="#handleBuku"
+                    style="-fx-background-color: #2980b9; -fx-text-fill: white;
+                           -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;"
+                    maxWidth="260" prefHeight="45"/>
+
+            <Button text="👥 List Anggota" onAction="#handleAnggota"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white;
+                           -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;"
+                    maxWidth="260" prefHeight="45"/>
+
+            <Button text="📖 List Peminjaman" onAction="#handlePeminjaman"
+                    style="-fx-background-color: #f39c12; -fx-text-fill: white;
+                           -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;"
+                    maxWidth="260" prefHeight="45"/>
         </VBox>
 
-        <!-- Tombol Logout di kanan atas -->
-        <Button layoutX="400" layoutY="20" text="Logout" onAction="#handleLogout"
-                style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;"/>
     </children>
 </AnchorPane>

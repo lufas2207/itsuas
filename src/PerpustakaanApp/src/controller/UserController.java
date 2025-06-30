@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Anggota;
 import model.Buku;
 
@@ -17,21 +19,21 @@ import java.io.*;
 import java.time.LocalDate;
 
 public class UserController {
+
+    @FXML private BorderPane root;
+    @FXML private Label labelNama;
+    @FXML private TextField tfCari;
     @FXML private TableView<Buku> tableBuku;
     @FXML private TableColumn<Buku, String> colKode, colJudul, colPengarang;
     @FXML private TableColumn<Buku, Integer> colTahun, colStok;
-    @FXML private Label labelNama;
-    @FXML private BorderPane root;
 
-    private ObservableList<Buku> daftarBuku = FXCollections.observableArrayList();
+    private final ObservableList<Buku> daftarBuku = FXCollections.observableArrayList();
     private Anggota anggota;
 
     public void setAnggota(Anggota anggota) {
         this.anggota = anggota;
-        if (labelNama != null) {
-            labelNama.setText("Selamat Datang, " + anggota.getNama() + "!");
-            tampilkanDataBuku();
-        }
+        labelNama.setText("Selamat Datang, " + anggota.getNama() + "!");
+        tampilkanDataBuku();
     }
 
     @FXML
@@ -42,19 +44,16 @@ public class UserController {
         colTahun.setCellValueFactory(new PropertyValueFactory<>("tahunTerbit"));
         colStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
         tableBuku.setItems(daftarBuku);
+
+        // Tambahkan animasi saat view muncul
+        FadeTransition fade = new FadeTransition(Duration.millis(800), root);
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.play();
     }
 
-    @FXML
-    public void showBuku() {
-        tampilkanDataBuku();
-    }
-
-    public void tampilkanDataBuku() {
+    private void tampilkanDataBuku() {
         daftarBuku.clear();
-        muatDataBuku();
-    }
-
-    private void muatDataBuku() {
         try (BufferedReader reader = new BufferedReader(new FileReader("buku.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -71,35 +70,35 @@ public class UserController {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            showError("Gagal Memuat Buku", "Terjadi kesalahan saat membaca data buku.");
         }
     }
 
     private void simpanDataBuku() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("buku.txt"))) {
             for (Buku buku : daftarBuku) {
-                writer.write(buku.getKodeBuku() + "," +
-                        buku.getJudul() + "," +
-                        buku.getPengarang() + "," +
-                        buku.getTahunTerbit() + "," +
-                        buku.getStok());
+                writer.write(String.join(",", buku.getKodeBuku(),
+                        buku.getJudul(),
+                        buku.getPengarang(),
+                        String.valueOf(buku.getTahunTerbit()),
+                        String.valueOf(buku.getStok())));
                 writer.newLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            showError("Gagal Menyimpan", "Data buku gagal disimpan.");
         }
     }
 
     @FXML
-    public void handlePinjam() {
+    private void handlePinjam() {
         Buku selected = tableBuku.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            showAlert("Gagal", "Pilih buku terlebih dahulu.");
+            showInfo("Pilih Buku", "Silakan pilih buku yang ingin dipinjam.");
             return;
         }
 
         if (!selected.isTersedia()) {
-            showAlert("Tidak Tersedia", "Buku sudah habis dipinjam.");
+            showInfo("Stok Habis", "Buku tidak tersedia untuk dipinjam.");
             return;
         }
 
@@ -110,29 +109,18 @@ public class UserController {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("peminjaman.txt", true))) {
             String idPeminjaman = "PJ" + System.currentTimeMillis();
             String tanggalPinjam = LocalDate.now().toString();
-            writer.write(idPeminjaman + "," +
-                    anggota.getIdAnggota() + "," +
-                    selected.getKodeBuku() + "," +
-                    tanggalPinjam + "," +
-                    "-");
+            writer.write(String.join(",", idPeminjaman, anggota.getIdAnggota(), selected.getKodeBuku(), tanggalPinjam, "-"));
             writer.newLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            showError("Gagal Mencatat", "Peminjaman tidak bisa disimpan.");
+            return;
         }
 
-        showAlert("Berhasil", "Peminjaman berhasil disimpan dan akan muncul di admin!");
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        showInfo("Sukses", "Peminjaman berhasil disimpan.");
     }
 
     @FXML
-    public void showRiwayat() {
+    private void showRiwayat() {
         StringBuilder riwayat = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader("peminjaman.txt"))) {
             String line;
@@ -146,37 +134,81 @@ public class UserController {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            showError("Gagal Memuat", "Riwayat peminjaman gagal dimuat.");
+            return;
         }
 
         if (riwayat.length() == 0) {
-            showAlert("Riwayat Kosong", "Belum ada peminjaman buku.");
+            showInfo("Riwayat Kosong", "Belum ada data peminjaman.");
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Riwayat Peminjaman");
-            alert.setHeaderText("Data peminjaman oleh " + anggota.getNama());
+            alert.setHeaderText("Riwayat milik: " + anggota.getNama());
             alert.setContentText(riwayat.toString());
             alert.showAndWait();
         }
     }
 
     @FXML
-    public void handleLogout() {
+    private void handleLogout() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
             Parent root = loader.load();
-
             Stage stage = new Stage();
             stage.setTitle("Login");
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Tutup jendela saat ini
-            Stage currentStage = (Stage) tableBuku.getScene().getWindow();
+            Stage currentStage = (Stage) this.root.getScene().getWindow();
             currentStage.close();
-
         } catch (IOException e) {
-            e.printStackTrace();
+            showError("Gagal Logout", "Tidak dapat kembali ke halaman login.");
         }
+    }
+
+    @FXML
+    private void handleCari() {
+        String keyword = tfCari.getText().toLowerCase().trim();
+        if (keyword.isEmpty()) {
+            tableBuku.setItems(daftarBuku);
+            return;
+        }
+
+        ObservableList<Buku> hasil = FXCollections.observableArrayList();
+        for (Buku b : daftarBuku) {
+            if (b.getJudul().toLowerCase().contains(keyword) || b.getPengarang().toLowerCase().contains(keyword)) {
+                hasil.add(b);
+            }
+        }
+
+        tableBuku.setItems(hasil);
+
+        if (hasil.isEmpty()) {
+            showInfo("Pencarian", "Tidak ditemukan buku dengan kata kunci: " + keyword);
+        }
+    }
+
+    @FXML
+    private void handleRefresh() {
+        tampilkanDataBuku();
+        tableBuku.refresh();
+        tfCari.clear();
+    }
+
+    // Alert
+    private void showInfo(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showError(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText("Terjadi Kesalahan");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

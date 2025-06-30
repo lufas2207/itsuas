@@ -13,61 +13,59 @@ import java.io.IOException;
 public class MainController {
 
     @FXML
-    private void handleBuku(ActionEvent event) {
+    private void handleBuku(final ActionEvent event) {
         bukaWindow("/view/BukuView.fxml", "Manajemen Buku");
     }
 
     @FXML
-    private void handleAnggota(ActionEvent event) {
+    private void handleAnggota(final ActionEvent event) {
         bukaWindow("/view/AnggotaView.fxml", "Manajemen Anggota");
     }
 
     @FXML
-    private void handlePeminjaman(ActionEvent event) {
+    private void handlePeminjaman(final ActionEvent event) {
         bukaWindow("/view/PeminjamanView.fxml", "Manajemen Peminjaman");
     }
 
     @FXML
-    private void handleTambahAnggota(ActionEvent event) {
+    private void handleTambahAnggota(final ActionEvent event) {
         bukaWindow("/view/TambahAnggotaView.fxml", "Tambah Anggota Baru");
     }
 
-    // (Opsional) Logout - bisa panggil dari tombol
     @FXML
-    private void handleLogout(ActionEvent event) {
+    private void handleLogout(final ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Login");
-            stage.setScene(new Scene(root));
-            stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/view/LoginView.fxml"));
+            Stage loginStage = new Stage();
+            loginStage.setTitle("Login");
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
 
-            // Tutup window sekarang
-            Stage thisStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            thisStage.close();
+            // Menutup stage saat ini
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
         } catch (IOException e) {
+            showAlert("Gagal", "Tidak dapat membuka halaman login.");
             e.printStackTrace();
         }
     }
 
-    // Fungsi bantu buka window FXML
-    private void bukaWindow(String path, String title) {
+    private void bukaWindow(String fxmlPath, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            showAlert("Gagal Membuka", "Gagal membuka jendela: " + title);
+            showAlert("Kesalahan", "Gagal membuka halaman: " + title);
             e.printStackTrace();
         }
     }
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR); // Ganti dari INFORMATION ke ERROR
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
